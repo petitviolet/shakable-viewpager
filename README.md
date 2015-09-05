@@ -17,3 +17,7 @@ repositories {
 }
 compile 'com.github.petitviolet:shakable-viewpager:0.1.0'
 ```
+
+# License
+
+This code is licensed under the Apache Software License 2.0.
