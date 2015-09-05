@@ -1,4 +1,10 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+def libVersion = "0.1.0"
+def groupId = "net.petitviolet.library"
+def libName = "shakable-viewpager"
+
 
 android {
     compileSdkVersion 22
@@ -21,4 +27,17 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
+}
+
+def deployTo = new File(rootDir, "../maven/repository")
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: "file://${deployTo.absolutePath}"
+            pom.version = libVersion
+            pom.groupId = groupId
+            pom.artifactId = libName
+        }
+    }
 }
