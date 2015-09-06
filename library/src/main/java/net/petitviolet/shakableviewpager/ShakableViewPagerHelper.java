@@ -9,8 +9,8 @@ import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
-public class ShakeableViewPagerHelper implements SensorEventListener {
-    private static final String TAG = ShakeableViewPagerHelper.class.getSimpleName();
+public class ShakableViewPagerHelper implements SensorEventListener {
+    private static final String TAG = ShakableViewPagerHelper.class.getSimpleName();
     private static final int MOV_COUNTS = 5;
     private static final int MOV_THRESHOLD = 4;
     private static final float ALPHA = 0.8F;
@@ -23,7 +23,7 @@ public class ShakeableViewPagerHelper implements SensorEventListener {
     private int mCounter;
     private long mFirstMovTime;
 
-    public ShakeableViewPagerHelper(Context context, OnShakeListener onShakeListener) {
+    public ShakableViewPagerHelper(Context context, OnShakeListener onShakeListener) {
         mOnShakeListener = new WeakReference<>(onShakeListener);
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -40,12 +40,10 @@ public class ShakeableViewPagerHelper implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         float maxAcc = calcMaxAcceleration(sensorEvent);
-//        Logger.d("Max Acc [" + maxAcc + "]");
         if (maxAcc >= MOV_THRESHOLD) {
             if (mCounter == 0) {
                 mCounter++;
                 mFirstMovTime = System.currentTimeMillis();
-//                Logger.d("First mov..");
             } else {
                 long now = System.currentTimeMillis();
                 if ((now - mFirstMovTime) < SHAKE_WINDOW_TIME_INTERVAL) {
@@ -55,10 +53,11 @@ public class ShakeableViewPagerHelper implements SensorEventListener {
                     mCounter++;
                     return;
                 }
-                Log.d(TAG, "Mov mCounter [" + mCounter + "]");
+//                Log.d(TAG, "Mov mCounter [" + mCounter + "]");
 
                 if (mCounter >= MOV_COUNTS)
                     if (mOnShakeListener != null) {
+                        Log.i(TAG, "shake event dispatched");
                         mOnShakeListener.get().onShake();
                         resetAllData();
                     }
@@ -92,7 +91,7 @@ public class ShakeableViewPagerHelper implements SensorEventListener {
 
 
     private void resetAllData() {
-        Log.d(TAG, "Reset all data");
+//        Log.d(TAG, "Reset all data");
         mCounter = 0;
         mFirstMovTime = System.currentTimeMillis();
     }

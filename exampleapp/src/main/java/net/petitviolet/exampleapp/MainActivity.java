@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.petitviolet.shakableviewpager.ShakableViewPager;
-import net.petitviolet.shakableviewpager.ShakePresenter;
+import net.petitviolet.shakableviewpager.ShakableViewPagerHelper;
 
 import java.lang.ref.WeakReference;
 
 
 public class MainActivity extends ActionBarActivity {
-    private ShakePresenter mShakePresenter;
+    private ShakableViewPagerHelper mShakableViewPagerHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +24,20 @@ public class MainActivity extends ActionBarActivity {
         ShakableViewPager viewPager = (ShakableViewPager) findViewById(R.id.view_pager);
         MyAdapter adapter = new MyAdapter(this);
         viewPager.setAdapter(adapter);
-        mShakePresenter = new ShakePresenter(this, viewPager);
+        viewPager.enableSwipe(true);
+        mShakableViewPagerHelper = new ShakableViewPagerHelper(this, viewPager);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mShakePresenter.register();
+        mShakableViewPagerHelper.register();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mShakePresenter.unregister();
+        mShakableViewPagerHelper.unregister();
     }
 
     private static class MyAdapter extends PagerAdapter {
