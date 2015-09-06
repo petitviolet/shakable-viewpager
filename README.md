@@ -7,6 +7,10 @@ This library enable ViewPager to show next page with shaking Android device.
 Please chack out exampleapp.
 Exampleapp uses ShakableViewPager and shows infinite paging with shaking device.
 
+# Demo
+
+![demo.gif](./image/demo.gif)
+
 # How to Use
 
 ## Setup
