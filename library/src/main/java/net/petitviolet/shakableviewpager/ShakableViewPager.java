@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 
 public class ShakableViewPager extends ViewPager implements OnShakeListener {
     private static final String TAG = ShakableViewPager.class.getSimpleName();
+    private boolean mCanSwipe = false;
 
     public ShakableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -17,16 +18,26 @@ public class ShakableViewPager extends ViewPager implements OnShakeListener {
         super(context);
     }
 
+    public void enableSwipe(boolean canSwipe) {
+        mCanSwipe = canSwipe;
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (mCanSwipe) {
+            return super.onTouchEvent(event);
+        }
         return false;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
+        if (mCanSwipe) {
+            return super.onInterceptTouchEvent(event);
+        }
         return false;
     }
+
     @Override
     public void onShake() {
         Log.i(TAG, "Shake");

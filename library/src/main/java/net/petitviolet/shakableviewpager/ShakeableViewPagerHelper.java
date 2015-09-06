@@ -9,8 +9,8 @@ import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
-public class ShakePresenter implements SensorEventListener {
-    private static final String TAG = ShakePresenter.class.getSimpleName();
+public class ShakeableViewPagerHelper implements SensorEventListener {
+    private static final String TAG = ShakeableViewPagerHelper.class.getSimpleName();
     private static final int MOV_COUNTS = 5;
     private static final int MOV_THRESHOLD = 4;
     private static final float ALPHA = 0.8F;
@@ -23,7 +23,7 @@ public class ShakePresenter implements SensorEventListener {
     private int mCounter;
     private long mFirstMovTime;
 
-    public ShakePresenter(Context context, OnShakeListener onShakeListener) {
+    public ShakeableViewPagerHelper(Context context, OnShakeListener onShakeListener) {
         mOnShakeListener = new WeakReference<>(onShakeListener);
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
